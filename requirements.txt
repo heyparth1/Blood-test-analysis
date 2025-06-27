@@ -1,0 +1,23 @@
+# Core requirements from existing system
+crewai>=0.130.0
+crewai-tools>=0.47.1
+fastapi>=0.110.3
+numpy>=1.26.4
+pandas>=2.2.2
+pillow>=10.3.0
+python-multipart
+python-dotenv
+uvicorn
+
+# Queue system requirements
+redis>=5.0.1
+
+# Optional: For production deployment
+gunicorn>=21.2.0 
+
+# Database dependencies
+sqlalchemy>=2.0.27
+alembic>=1.13.1
+
+# Resolving tiktoken conflicts
+tiktoken>=0.8.0
