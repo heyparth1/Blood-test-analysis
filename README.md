@@ -1,23 +1,18 @@
-# Blood Test Analyzer - Professional Medical Analysis System
+# 🩸 Blood Test Analyzer - Professional Medical Analysis System
 
-A professional FastAPI application that provides evidence-based blood test analysis using AI agents with comprehensive error handling, database persistence, and concurrent processing capabilities.
+A professional system that provides evidence-based blood test analysis using an optimized AI agent, with a FastAPI backend and a user-friendly Streamlit frontend.
 
 ## 🚀 Project Overview
 
-This system provides professional blood test report analysis through multiple specialized AI agents:
-- **Medical Laboratory Analyst** - Evidence-based blood test interpretation
-- **Document Verification Specialist** - Medical document validation
-- **Clinical Nutritionist** - Science-based nutritional guidance  
-- **Exercise Physiologist** - Safe, progressive exercise recommendations
+This system provides professional blood test analysis through a single, optimized AI agent. It uses CrewAI for orchestration, FastAPI for the backend API, and Streamlit for the user interface.
 
 **Key Features:**
-- ✅ Professional medical analysis with appropriate disclaimers
-- ✅ Synchronous and asynchronous processing
-- ✅ SQLite database for analysis persistence
-- ✅ Redis-based queue system for concurrent requests
-- ✅ Comprehensive error handling and validation
-- ✅ File upload security (PDF-only, 10MB limit)
-- ✅ Blood marker extraction and storage
+- ✅ **Optimized AI Agent:** A single, comprehensive agent for efficient and fast analysis.
+- ✅ **FastAPI Backend:** A robust API for handling file uploads, analysis, and data persistence.
+- ✅ **Streamlit Frontend:** An interactive and user-friendly web interface for seamless user interaction.
+- ✅ **Database Persistence:** SQLite database for storing analysis results and system statistics.
+- ✅ **Secure & Validated:** Comprehensive error handling, file validation, and security protocols.
+- ✅ **Asynchronous Support:** Redis-based queue system for handling concurrent, long-running tasks.
 
 ---
 
@@ -64,63 +59,61 @@ This system provides professional blood test report analysis through multiple sp
 ## 📦 Installation & Setup
 
 ### Prerequisites
-- Python 3.10+ (recommended for compatibility)
+- Python 3.10+
 - Google API Key (for Gemini AI)
-- Redis (optional, for queue system)
+- Redis (optional, for the async queue)
 
 ### Quick Start
 
-1. **Clone and Navigate:**
-   ```bash
-   cd blood-test-analyser-debug
-   ```
+1.  **Clone and Navigate:**
+    ```bash
+    cd blood-test-analyser-debug
+    ```
 
-2. **Create Virtual Environment (Python 3.10):**
-   ```bash
-   # Create virtual environment with Python 3.10
-   python3.10 -m venv venv
-   
-   # Activate virtual environment
-   source venv/bin/activate  # On Linux/Mac
-   # or
-   venv\Scripts\activate     # On Windows
-   ```
+2.  **Create and Activate Virtual Environment:**
+    ```bash
+    python3.10 -m venv venv
+    source venv/bin/activate
+    ```
 
-3. **Install Dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   pip install python-multipart  # For file uploads
-   
-   # Optional: For queue system
-   pip install redis==5.0.1
-   
-   # Optional: For database (auto-installs if missing)
-   pip install sqlalchemy==2.0.23 alembic==1.13.1
-   ```
+3.  **Install Dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-4. **Configure Environment:**
-   ```bash
-   # Create .env file
-   echo "GOOGLE_API_KEY=your_google_api_key_here" > .env
-   ```
+4.  **Configure Environment:**
+    Create a `.env` file and add your Google API key:
+    ```bash
+    echo "GOOGLE_API_KEY=your_google_api_key_here" > .env
+    ```
 
-5. **Start Application:**
-   ```bash
-   python main.py
-   ```
+5.  **Start the Backend Server:**
+    ```bash
+    python main.py
+    ```
+    The API will be available at `http://localhost:8000`.
 
-### Optional: Redis Queue System
+6.  **Start the Streamlit Frontend:**
+    In a **new terminal**, run the frontend application:
+    ```bash
+    streamlit run streamlit_app.py
+    ```
+    The web interface will be available at `http://localhost:8501`.
 
-For production workloads with concurrent processing:
+---
 
-```bash
-# Install and start Redis
-sudo apt install redis-server
-sudo systemctl start redis-server
+## ✨ Streamlit Frontend
 
-# Application will automatically detect and use Redis
-python main.py
-```
+The project includes an interactive web interface built with Streamlit, providing a seamless user experience.
+
+**Frontend Features:**
+-   **File Upload:** Easily upload your PDF blood test reports.
+-   **Text-Based Analysis:** Get medical insights without needing to upload a file.
+-   **Live System Status:** A sidebar shows the real-time health of the backend API.
+-   **Recent Analyses:** View a list of recently completed analyses.
+-   **Professionally Formatted Output:** Analysis results are displayed in a clean, readable format.
+
+See `STREAMLIT_README.md` for more details on the frontend.
 
 ---
 
@@ -128,223 +121,33 @@ python main.py
 
 ### Core Components
 
-1. **FastAPI Application** (`main.py`)
-   - RESTful API endpoints
-   - File upload handling
-   - Error management
-   - Request validation
-
-2. **AI Agent System** (`agents.py`, `task.py`)
-   - Professional medical analysis agents
-   - Evidence-based recommendations
-   - Comprehensive disclaimers
-
-3. **Database Layer** (`database.py`)
-   - SQLite for analysis persistence
-   - Blood marker extraction
-   - User management (optional)
-   - System statistics
-
-4. **Queue System** (`queue_worker.py`)
-   - Redis-based job processing
-   - Async analysis handling
-   - Fallback to in-memory queue
-
-5. **Tools & Utilities** (`tools.py`)
-   - PDF processing tools
-   - Analysis utilities
-   - Error handling
-
-### Data Flow
-
-```
-Upload PDF → Validation → Analysis → Database Storage → Response
-     ↓
-[Sync] Direct processing → Immediate response
-[Async] Queue job → Background processing → Status polling
-```
+1.  **FastAPI Backend** (`main.py`):
+    -   Manages RESTful API endpoints, file uploads, and request validation.
+2.  **AI Agent System** (`agents.py`, `task.py`):
+    -   Powered by CrewAI, orchestrates the comprehensive analysis task.
+3.  **Streamlit Frontend** (`streamlit_app.py`):
+    -   Provides the user interface for interacting with the system.
+4.  **Database Layer** (`database.py`):
+    -   Uses SQLite for persisting analysis results and system stats.
+5.  **Queue System** (`queue_worker.py`):
+    -   Optional Redis-based queue for asynchronous processing of tasks.
 
 ---
 
 ## 📚 API Documentation
 
-### Base URL
-```
-http://localhost:8000
-```
+The full API documentation is automatically generated by FastAPI and is available at:
 
-### Authentication
-- Google API key required in environment variables
-- No user authentication (can be added for production)
+-   **Swagger UI:** `http://localhost:8000/docs`
+-   **ReDoc:** `http://localhost:8000/redoc`
 
-### Endpoints
-
-#### **Health Check**
-```http
-GET /
-GET /health
-```
-**Response:**
-```json
-{
-  "status": "healthy",
-  "service": "Professional Blood Test Analyser",
-  "version": "2.2.0",
-  "system_status": {
-    "database": "operational",
-    "queue_system": "available",
-    "file_system": "accessible"
-  }
-}
-```
-
-#### **Synchronous Analysis**
-```http
-POST /analyze
-Content-Type: multipart/form-data
-
-file: [PDF file, max 10MB]
-query: "Please analyze my blood test results" [optional]
-```
-
-**Response:**
-```json
-{
-  "status": "success",
-  "request_id": "uuid-here",
-  "analysis_id": "database-record-id",
-  "query": "Please analyze my blood test results",
-  "analysis": "Comprehensive medical analysis...",
-  "processing_info": {
-    "processing_time_seconds": 8.45,
-    "file_size_bytes": 256000,
-    "timestamp": 1640995200.0
-  },
-  "specialists_consulted": [
-    "Medical Laboratory Analyst",
-    "Document Verification Specialist", 
-    "Clinical Nutritionist",
-    "Exercise Physiologist"
-  ],
-  "disclaimer": "This analysis is for educational purposes only..."
-}
-```
-
-#### **Asynchronous Analysis**
-```http
-POST /analyze-async
-Content-Type: multipart/form-data
-
-file: [PDF file, max 10MB]  
-query: "Please analyze my blood test results" [optional]
-```
-
-**Response:**
-```json
-{
-  "status": "queued",
-  "job_id": "job-uuid-here",
-  "request_id": "request-uuid-here",
-  "message": "Analysis has been queued for processing",
-  "status_url": "/status/job-uuid-here",
-  "estimated_processing_time": "1-3 minutes"
-}
-```
-
-#### **Job Status**
-```http
-GET /status/{job_id}
-```
-
-**Response (Completed):**
-```json
-{
-  "job_id": "job-uuid-here",
-  "status": "completed",
-  "result": {
-    "status": "success",
-    "analysis_id": "database-record-id",
-    "analysis": "Comprehensive medical analysis...",
-    "processing_time": 12.34
-  }
-}
-```
-
-#### **Recent Analyses**
-```http
-GET /analyses/recent?limit=10
-```
-
-**Response:**
-```json
-{
-  "status": "success",
-  "count": 5,
-  "analyses": [
-    {
-      "id": "analysis-uuid",
-      "filename": "blood_report.pdf",
-      "query": "Analyze my blood test...",
-      "summary": "Brief summary...",
-      "created_at": "2024-01-01T12:00:00",
-      "processing_time": 8.45,
-      "status": "completed"
-    }
-  ]
-}
-```
-
-#### **System Statistics**
-```http
-GET /stats
-```
-
-**Response:**
-```json
-{
-  "status": "success",
-  "statistics": {
-    "total_analyses": 150,
-    "successful_analyses": 147,
-    "failed_analyses": 3,
-    "success_rate": 98.0,
-    "avg_processing_time": 9.23
-  }
-}
-```
-
-#### **Queue Statistics**
-```http
-GET /queue/stats
-```
-
-**Response:**
-```json
-{
-  "queue_enabled": true,
-  "queue_length": 3,
-  "backend": "redis",
-  "status": "healthy"
-}
-```
-
-### Error Responses
-
-All errors return structured JSON with appropriate HTTP status codes:
-
-```json
-{
-  "error": "Validation Error",
-  "message": "File too large. Maximum size is 10.0MB",
-  "type": "validation_error",
-  "timestamp": 1640995200.0
-}
-```
-
-**Common Error Codes:**
-- `400` - Validation errors (file type, size, format)
-- `500` - Processing errors (AI model, analysis failures)
-- `503` - Service unavailable (database/queue system down)
+### Key API Endpoints
+- `GET /health`: Checks the health of the API.
+- `POST /analyze`: Submits a blood test PDF for synchronous analysis.
+- `POST /analyze-async`: Submits a blood test PDF for asynchronous analysis.
+- `POST /analyze-text`: Submits a text query for analysis.
+- `GET /analyses/recent`: Retrieves a list of recent analyses.
+- `GET /status/{job_id}`: Checks the status of an asynchronous job.
 
 ---
 
@@ -411,4 +214,4 @@ curl -X POST -F "file=@large_file.pdf" http://localhost:8000/analyze
 
 ---
 
-*Professional Blood Test Report Analyser v2.2.0 - Enhanced with Database Integration and Concurrent Processing*
+*This project has been significantly refactored and optimized for performance, security, and professional-grade output.*
